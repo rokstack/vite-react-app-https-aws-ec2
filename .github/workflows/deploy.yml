@@ -37,8 +37,8 @@ jobs:
       # Upload the Docker image tar file to an S3 bucket
       - name: Upload Docker image to S3
         env:
-          S3_BUCKET_NAME: ${{ secrets.DOCKER_S3_BUCKET_NAME }}
-        run: aws s3 cp rokstack-react-image.tar s3://$DOCKER_S3_BUCKET_NAME/rokstack-react-image.tar
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+        run: aws s3 cp rokstack-react-image.tar s3://$S3_BUCKET_NAME/rokstack-react-image.tar
 
   deploy:
     runs-on: ubuntu-latest
@@ -59,14 +59,13 @@ jobs:
                 sudo ./aws/install
             fi
             
-            
             # Configure AWS CLI
             aws configure set default.region eu-west-2
             aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} # Use the actual secret name for your AWS access key ID
             aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }} # Use the actual secret name for your AWS secret access key
 
             # Pull the Docker image tar file from S3
-            aws s3 cp s3://${{ secrets.DOCKER_S3_BUCKET_NAME }}/rokstack-react-image.tar rokstack-react-image.tar
+            aws s3 cp s3://${{ secrets.S3_BUCKET_NAME }}/rokstack-react-image.tar rokstack-react-image.tar
 
             # Load the Docker image from the tar file
             docker load < rokstack-react-image.tar
