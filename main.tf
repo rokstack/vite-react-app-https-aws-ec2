@@ -188,7 +188,7 @@ resource "aws_iam_user" "ci_cd_user" {
   name = "ci-cd-user-${random_pet.name.id}"
 }
 
-# Generate access keys for the IAM user
+#Generate access keys for the IAM user
 resource "aws_iam_access_key" "ci_cd_user_key" {
   user = aws_iam_user.ci_cd_user.name
 }
