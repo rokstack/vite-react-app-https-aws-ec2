@@ -58,7 +58,8 @@ jobs:
                 unzip awscliv2.zip
                 sudo ./aws/install
             fi
-
+            
+            
             # Configure AWS CLI
             aws configure set default.region eu-west-2
             aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }} # Use the actual secret name for your AWS access key ID
