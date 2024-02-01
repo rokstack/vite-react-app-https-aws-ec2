@@ -172,6 +172,11 @@ resource "aws_instance" "example" {
               sudo systemctl start docker
               sudo systemctl enable docker
               sudo usermod -aG docker ec2-user
+
+              # Install Nginx
+              sudo dnf install nginx -y
+              sudo systemctl start nginx
+              sudo systemctl enable nginx
               EOF
 
   tags = {
